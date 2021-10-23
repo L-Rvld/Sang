@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Abroile</string>
+    <string name="tentang">Aplikasi ini dibuat sebagai persyaratan untuk memperoleh gelar Sarjana Komputer di Fakultas Teknik Program Studi Teknik Informatika di Universitas Muhammadiyah Jember.</string>
+    <string name="tentang2">ABroile dapat dijadikan alat pertimbangan dalam proses diagnosa pada ayam broiler serta mengukur tingkat akurasi metode backward chaining dan certainty factor terhadap diagnosa penyakit ayam broiler.</string>
+    <string name="tentang3">Aplikasi ini juga dapat digunakan sebagai media informasi untuk mendiagnosa dan penanganan terhadap ayam broiler.</string>
+
+</resources>
