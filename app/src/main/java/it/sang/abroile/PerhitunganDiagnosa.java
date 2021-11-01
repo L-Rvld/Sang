@@ -78,90 +78,71 @@ public class PerhitunganDiagnosa extends AppCompatActivity {
 
         getGejala();
 
-        btnCekHasil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean gas = Boolean.FALSE;
-                for (int i=0; i<integerList.size(); i++) {
-                    if (integerList.get(i).equals("-2")) {
-                        Snackbar snackbar = Snackbar
-                                .make(view, "Harap Pilih Kepastian Gejala", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                        break;
-                    }else {
-                        gas = (i == integerList.size() - 1) ? Boolean.TRUE : Boolean.FALSE;
-                    }
+        btnCekHasil.setOnClickListener(view -> {
+            Boolean gas = Boolean.FALSE;
+            for (int i=0; i<integerList.size(); i++) {
+                if (integerList.get(i).equals("-2")) {
+                    Snackbar snackbar = Snackbar
+                            .make(view, "Harap Pilih Kepastian Gejala", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    break;
+                }else {
+                    gas = (i == integerList.size() - 1) ? Boolean.TRUE : Boolean.FALSE;
                 }
-                if (gas) {
-                    sendGejala();
-                }
+            }
+            if (gas) {
+                sendGejala();
             }
         });
     }
 
     public void getGejala(){
-        StringRequest penyakit = new StringRequest(Request.Method.GET, api.getApi_service()+"Diagnosa/?serv=getDataDiagnosa&id_penyakit="+bundle.getInt("id"), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("DRF", "onResponse: "+response);
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        ModelGejala modelGejala = new ModelGejala(jsonObject1.getString("id_gejala"), "Apakah Ayam Mengalami "+jsonObject1.getString("nama_gejala")+" ?");
-                        gejalas.add(modelGejala);
-                        integerList.add("-2");
-                    }
-                    gejala = new AdapterGejala(gejalas, getApplicationContext());
-                    recyclerView.setAdapter(gejala);
-                    gejala.notifyDataSetChanged();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        StringRequest penyakit = new StringRequest(Request.Method.GET, api.getApi_service()+"Diagnosa/?serv=getDataDiagnosa&id_penyakit="+bundle.getInt("id"), response -> {
+            Log.d("DRF", "onResponse: "+response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                    ModelGejala modelGejala = new ModelGejala(jsonObject1.getString("id_gejala"), "Apakah Ayam Mengalami "+jsonObject1.getString("nama_gejala")+" ?");
+                    gejalas.add(modelGejala);
+                    integerList.add("-2");
                 }
+                gejala = new AdapterGejala(gejalas, getApplicationContext());
+                recyclerView.setAdapter(gejala);
+                gejala.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("DRF", "onErrorResponse: "+error);
-            }
-        });
+        }, error -> Log.d("DRF", "onErrorResponse: "+error));
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(penyakit);
     }
 
     public void sendGejala(){
         dialog.show();
-        StringRequest penyakit = new StringRequest(Request.Method.POST, api.getApi_service()+"diagnosa/", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("DRF", "onResponse: "+response);
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    hsailbro= jsonObject.getString("hasil");
-                    JSONObject jsonObject1 = jsonObject.getJSONObject("penyakit");
-                    dialog.dismiss();
-                    startActivity(new Intent(PerhitunganDiagnosa.this,HasilGejala.class)
-                            .putExtra("hasil",hsailbro)
-                            .putExtra("nama", jsonObject1.getString("nama_penyakit"))
-                            .putExtra("des",jsonObject1.getString("deskripsi"))
-                            .putExtra("img",bundle.getInt("id"))
-                            .putExtra("obat",jsonObject1.getString("obat")));
-                    finish();
-                } catch (JSONException e) {
-                    Toast.makeText(PerhitunganDiagnosa.this, "Gagal,coba lagi", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
+        StringRequest penyakit = new StringRequest(Request.Method.POST, api.getApi_service()+"diagnosa/", response -> {
+            Log.d("DRF", "onResponse: "+response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                hsailbro= jsonObject.getString("hasil");
+                JSONObject jsonObject1 = jsonObject.getJSONObject("penyakit");
+                dialog.dismiss();
+                startActivity(new Intent(PerhitunganDiagnosa.this,HasilGejala.class)
+                        .putExtra("hasil",hsailbro)
+                        .putExtra("nama", jsonObject1.getString("nama_penyakit"))
+                        .putExtra("des",jsonObject1.getString("deskripsi"))
+                        .putExtra("img",bundle.getInt("id"))
+                        .putExtra("obat",jsonObject1.getString("obat")));
+                finish();
+            } catch (JSONException e) {
+                Toast.makeText(PerhitunganDiagnosa.this, "Gagal,coba lagi", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("DRF", "onErrorResponse: ",error );
-            }
-        }){
+        }, error -> Log.e("DRF", "onErrorResponse: ",error )){
             @Override
 
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     for (int i = 0; i <integerList.size(); i++){

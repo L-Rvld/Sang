@@ -23,19 +23,13 @@ public class AdminMain extends AppCompatActivity {
         tambah = findViewById(R.id.btntambah);
         hapus = findViewById(R.id.btnhapus);
 
-        tambah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminMain.this, MasterPenyakit.class).putExtra("req","tambah"));
-            }
-        });
+        tambah.setOnClickListener(view ->
+                startActivity(new Intent(AdminMain.this, MasterPenyakit.class)
+                        .putExtra("req","tambah")));
 
-        hapus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminMain.this, MasterPenyakit.class).putExtra("req","hapus"));
-            }
-        });
+        hapus.setOnClickListener(view ->
+                startActivity(new Intent(AdminMain.this, MasterPenyakit.class)
+                        .putExtra("req","hapus")));
 
     }
     @Override

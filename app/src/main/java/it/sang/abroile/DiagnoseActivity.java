@@ -33,27 +33,20 @@ public class DiagnoseActivity extends AppCompatActivity {
 
         btnLanjut = findViewById(R.id.btnLanjut);
         autoCompleteTextView = findViewById(R.id.acText);
+
         textInputLayout = findViewById(R.id.menuPenyakit);
         autoCompleteTextView.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, penyakit);
         autoCompleteTextView.setAdapter(adapter);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                btnLanjut.setEnabled(true);
-                idP = position;
-            }
+        autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {
+            btnLanjut.setEnabled(true);
+            idP = position;
         });
 
-        btnLanjut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DiagnoseActivity.this,PerhitunganDiagnosa.class)
-                .putExtra("id",idP+1)
-                .putExtra("nama",penyakit[idP]));
-            }
-        });
+        btnLanjut.setOnClickListener(v -> startActivity(new Intent(DiagnoseActivity.this,PerhitunganDiagnosa.class)
+        .putExtra("id",idP+1)
+        .putExtra("nama",penyakit[idP])));
     }
 
     @Override

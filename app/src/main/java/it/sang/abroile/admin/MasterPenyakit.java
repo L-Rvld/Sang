@@ -97,7 +97,7 @@ public class MasterPenyakit extends AppCompatActivity {
         penyakit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                position = i;
+                position = i+1;
                 setSpinnerGejala(gejala,position);
             }
 

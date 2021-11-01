@@ -37,32 +37,21 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.actionbar);
         View view = getSupportActionBar().getCustomView();
         name = view.findViewById(R.id.actionbarTitle);
-
         diag = findViewById(R.id.cardDiag);
         info = findViewById(R.id.cardInfo);
         bantuan = findViewById(R.id.cardBantuan);
         tntg = findViewById(R.id.cardTntng);
         keluar = findViewById(R.id.cardKeluar);
 
-        diag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DiagnoseActivity.class));
-            }
-        });
-        keluar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                exitclick();
-            }
-        });
+        diag.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DiagnoseActivity.class)));
 
-        tntg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,InfoActivity.class));
-            }
-        });
+        info.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TentangActivity.class)));
+
+        bantuan.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, BantuanActivity.class)));
+
+        keluar.setOnClickListener(view1 -> exitclick());
+
+        tntg.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,InfoActivity.class)));
 
     };
     public void exitclick(){
@@ -70,18 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 .setIcon(R.drawable.chicken)
                 .setTitle(R.string.app_name)
                 .setMessage("Kamu yakin ingin keluar?")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                })
+                .setPositiveButton("OK", (dialog, which) -> finish())
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.cancel())
                 .show();
     }
 
@@ -93,29 +72,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu_login, menu);
-        name.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("WrongConstant")
-            @Override
-            public void onClick(View v) {
-                clickcount=clickcount-1;
-                if(clickcount<=5)
-                {
-                    final Toast toast = Toast.makeText(getApplicationContext(),"Klik "+clickcount+"x lagi untuk masuk ke Login Admin", Toast.LENGTH_SHORT);
-                    toast.show();
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            toast.cancel();
-                        }
-                    }, 200);
-                }
-                if (clickcount==0)
-                {
-                    name.setClickable(false);
-                    MenuItem item = menu.findItem(R.id.login);
-                    item.setVisible(true);
-                }
+        name.setOnClickListener(v -> {
+            clickcount=clickcount-1;
+            if(clickcount<=5)
+            {
+                final Toast toast = Toast.makeText(getApplicationContext(),"Klik "+clickcount+"x lagi untuk masuk ke Login Admin", Toast.LENGTH_SHORT);
+                toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 200);
+            }
+            if (clickcount==0)
+            {
+                name.setClickable(false);
+                MenuItem item = menu.findItem(R.id.login);
+                item.setVisible(true);
             }
         });
         return true;

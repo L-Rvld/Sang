@@ -79,7 +79,7 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardInfo"
+                        android:id="@+id/cardTntng"
                         android:layout_width="0dp"
                         android:layout_height="140dp"
                         android:layout_marginRight="5dp"
@@ -93,7 +93,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/info"
+                            android:src="@drawable/tentang"
                             app:tint="@color/btn"/>
 
                         <TextView
@@ -102,7 +102,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="35dp"
                             android:gravity="center_horizontal"
-                            android:text="INFO" />
+                            android:text="TENTANG" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -139,7 +139,7 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardTntng"
+                        android:id="@+id/cardInfo"
                         android:layout_width="0dp"
                         android:layout_height="140dp"
                         android:layout_marginRight="5dp"
@@ -153,7 +153,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/tentang"/>
+                            android:src="@drawable/info"/>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -161,7 +161,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="35dp"
                             android:gravity="center_horizontal"
-                            android:text="TENTANG" />
+                            android:text="INFO" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
