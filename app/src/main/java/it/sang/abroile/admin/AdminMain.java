@@ -10,7 +10,7 @@ import android.widget.Button;
 import it.sang.abroile.R;
 
 public class AdminMain extends AppCompatActivity {
-    Button tambah, hapus;
+    Button tambah, hapus, laporan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +22,7 @@ public class AdminMain extends AppCompatActivity {
 
         tambah = findViewById(R.id.btntambah);
         hapus = findViewById(R.id.btnhapus);
+        laporan = findViewById(R.id.btnlaporan);
 
         tambah.setOnClickListener(view ->
                 startActivity(new Intent(AdminMain.this, MasterPenyakit.class)
@@ -31,6 +32,9 @@ public class AdminMain extends AppCompatActivity {
                 startActivity(new Intent(AdminMain.this, MasterPenyakit.class)
                         .putExtra("req","hapus")));
 
+        laporan.setOnClickListener(view ->{
+            startActivity(new Intent(AdminMain.this, LaporanAdmin.class));
+        });
     }
     @Override
     public boolean onSupportNavigateUp() {

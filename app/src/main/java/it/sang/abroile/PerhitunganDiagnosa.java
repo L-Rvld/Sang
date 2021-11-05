@@ -125,7 +125,7 @@ public class PerhitunganDiagnosa extends AppCompatActivity {
             Log.d("DRF", "onResponse: "+response);
             try {
                 JSONObject jsonObject = new JSONObject(response);
-                hsailbro= jsonObject.getString("hasil");
+                hsailbro = jsonObject.getString("hasil");
                 JSONObject jsonObject1 = jsonObject.getJSONObject("penyakit");
                 dialog.dismiss();
                 startActivity(new Intent(PerhitunganDiagnosa.this,HasilGejala.class)
@@ -146,6 +146,7 @@ public class PerhitunganDiagnosa extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     for (int i = 0; i <integerList.size(); i++){
+
                         jsonObject.put("data"+i, integerList.get(i));
                     }
                 } catch (JSONException e) {

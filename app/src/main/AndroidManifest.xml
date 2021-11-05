@@ -15,7 +15,10 @@
         android:theme="@style/Theme.Abroile"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".admin.LoginAdmin"></activity>
+        <activity
+            android:name=".admin.LaporanAdmin"
+            android:exported="false" />
+        <activity android:name=".admin.LoginAdmin" />
         <activity android:name=".admin.MasterPenyakit" />
         <activity android:name=".admin.AdminMain" />
         <activity android:name=".HasilGejala" />
