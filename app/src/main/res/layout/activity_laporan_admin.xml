@@ -10,14 +10,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         android:id="@+id/recyLaporan"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="#DBDBDB"
         android:id="@+id/textLap"
         android:visibility="gone"
-        android:textColor="@android:color/darker_gray"
         android:gravity="center"
-        android:text="TIDAK ADA KRITIK DAN SARAN\nSwipe kebawah untuk refresh"/>
+        android:text="Tidak Ada Kritik Dan Saran"/>
 </LinearLayout>

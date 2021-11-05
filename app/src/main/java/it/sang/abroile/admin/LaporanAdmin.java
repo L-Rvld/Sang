@@ -81,11 +81,12 @@ public class LaporanAdmin extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-                    if (jsonArray.isNull(0)){
-                       recyclerView.setVisibility(View.GONE);
-                       txt.setVisibility(View.VISIBLE);
+                    if (jsonObject.isNull("data")){
+                        progressDialog.dismiss();
+                        recyclerView.setVisibility(View.GONE);
+                        txt.setVisibility(View.VISIBLE);
                     }else {
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject kritik = jsonArray.getJSONObject(i);
                             ModelLaporan modelLaporan = new ModelLaporan(kritik.getString("id_kritik"), kritik.getString("nama"), kritik.getString("no"), kritik.getString("email"), kritik.getString("laporan"));

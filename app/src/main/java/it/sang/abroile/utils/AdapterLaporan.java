@@ -32,7 +32,6 @@ public class AdapterLaporan extends RecyclerView.Adapter<AdapterLaporan.ViewHold
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
-
     }
 
     @NonNull
